@@ -101,8 +101,8 @@ A modern, production-quality Lead Management CRM built with Next.js 15, TypeScri
 ### 1. Clone and install
 
 ```bash
-git clone <your-repo-url>
-cd instaweb-crm
+git clone https://github.com/vaibhavGala262/LeadManagement.git
+cd LeadManagement
 npm install
 ```
 
