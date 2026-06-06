@@ -56,8 +56,9 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("GET /api/leads error:", error);
+    const message = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: "Failed to fetch leads" },
+      { error: "Failed to fetch leads", detail: message },
       { status: 500 }
     );
   }
@@ -95,8 +96,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ data: lead }, { status: 201 });
   } catch (error) {
     console.error("POST /api/leads error:", error);
+    const message = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: "Failed to create lead" },
+      { error: "Failed to create lead", detail: message },
       { status: 500 }
     );
   }

@@ -19,8 +19,9 @@ export async function GET(
     return NextResponse.json({ data: lead });
   } catch (error) {
     console.error("GET /api/leads/[id] error:", error);
+    const msg = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: "Failed to fetch lead" },
+      { error: "Failed to fetch lead", detail: msg },
       { status: 500 }
     );
   }
@@ -85,8 +86,9 @@ export async function PUT(
     return NextResponse.json({ data: lead });
   } catch (error) {
     console.error("PUT /api/leads/[id] error:", error);
+    const msg = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: "Failed to update lead" },
+      { error: "Failed to update lead", detail: msg },
       { status: 500 }
     );
   }
@@ -109,8 +111,9 @@ export async function DELETE(
     return NextResponse.json({ data: { id } }, { status: 200 });
   } catch (error) {
     console.error("DELETE /api/leads/[id] error:", error);
+    const msg = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: "Failed to delete lead" },
+      { error: "Failed to delete lead", detail: msg },
       { status: 500 }
     );
   }
