@@ -1,14 +1,14 @@
 import { PrismaClient } from "@/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
-import { Prisma } from "@/generated/prisma/client";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
 function createPrismaClient() {
-  if (!process.env.DATABASE_URL) {
+  const url = process.env.DATABASE_URL;
+  if (!url) {
     throw new Error(
       "DATABASE_URL is not set. " +
         "Add it in Vercel → Project Settings → Environment Variables."
@@ -16,7 +16,7 @@ function createPrismaClient() {
   }
 
   const pool = new Pool({
-    connectionString: process.env.DATABASE_URL.replace(/(\?|&)sslmode=[^&]*/g, "").replace(/[?&]$/g, ""),
+    connectionString: url,
     ssl: { rejectUnauthorized: false },
   });
 
@@ -41,4 +41,4 @@ export const prisma = new Proxy<PrismaClient>({} as PrismaClient, {
   },
 });
 
-export { PrismaClient, Prisma };
+export { PrismaClient };

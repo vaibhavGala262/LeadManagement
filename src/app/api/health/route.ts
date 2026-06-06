@@ -16,7 +16,7 @@ export async function GET() {
       const { PrismaPg } = await import("@prisma/adapter-pg");
       const { Pool } = await import("pg");
       const pool = new Pool({
-        connectionString: process.env.DATABASE_URL.replace(/(\?|&)sslmode=[^&]*/g, "").replace(/[?&]$/g, ""),
+        connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false },
       });
       const adapter = new PrismaPg(pool);
